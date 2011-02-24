@@ -30,5 +30,14 @@ Here's a quick example:
 	# or with formulas. Options are collected in a string passed as second optional argument
 	gp.replot "x**2", "with lines"
 
-	# command history can be dumper and possibly saved on file to be edited or loaded again later on.
+	# command history can be dumped and possibly saved on file to be edited or loaded again later on.
 	puts gp.dump_input
+	
+Installation
+------------
+
+As usual, use the gem:
+
+	% [sudo] gem install gnuplotr
+
+Needless to say, you probably have to install a GNUPlot version in order to use gnuplotr...
