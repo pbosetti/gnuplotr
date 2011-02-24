@@ -49,8 +49,16 @@ class GNUPlotr
   
   def fill_series(name)
     raise "Need a block" unless block_given?
+    new_series(name) unless @series[name]
     yield @series[name]
     @series[name].close
+  end
+  
+  def method_missing(name, *args, &block)
+    options = args.inject("") {|s, t|
+      s + " " + parse_tokens(t)
+    }
+    raw "#{name.to_s.sub(/_/, " ")} #{options}"
   end
     
   def raw(message)
@@ -93,13 +101,29 @@ class GNUPlotr
       yield line if line =~ /^\s*\w+/ 
     end
   end
+  
+  def parse_tokens(t)
+    case t
+    when Symbol
+      t.to_s
+    when String
+      "'#{t}'"
+    when Hash
+      r = ""
+      t.each {|k,v|
+        r += " #{k.to_s} #{parse_tokens(v)}"
+      }
+      r
+    else
+      t.to_s
+    end
+  end
 end
 
 
 
 if $0 == __FILE__
   gp = GNUPlotr.new
-  gp.new_series :parabola
   gp.fill_series(:parabola) do |s|
     (0..99).each do |i|
       s << [i, i**2]
