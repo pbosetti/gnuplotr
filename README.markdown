@@ -38,7 +38,8 @@ Here's a quick example:
 	gp.set_title 'GNUPlotr example'
 	gp.set_xlabel 'x', :offset => 3, :font => "Times New Roman,26"
 	gp.set_ylabel "f(x)"
-
+  gp.set_xrange [0:50]
+  
 	# issue plotting commands, either with named data series
 	gp.plot :parabola, "using 1:2 with points axes x1y1"
 

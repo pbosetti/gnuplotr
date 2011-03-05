@@ -58,7 +58,6 @@ class GNUPlotr
     options = args.inject("") {|s, t|
       s + " " + parse_tokens(t)
     }
-    warn options.inspect
     raw "#{name.to_s.sub(/_/, " ")} #{options}"
   end
     
@@ -110,7 +109,7 @@ class GNUPlotr
     when String
       "'#{t}'"
     when Range
-      "#{t}"
+      "[#{t.begin}:#{t.end}]"
     when Hash
       r = ""
       t.each {|k,v|
