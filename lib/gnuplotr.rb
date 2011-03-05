@@ -32,7 +32,7 @@ end
 class GNUPlotr
   attr_accessor :gnuplot_path, :series, :record
   def initialize(path=nil)
-    @gnuplot_path = (path || '/opt/local/bin/gnuplot')
+    @gnuplot_path = (path || find_path)
     raise RuntimeError, "Could not find #{@gnuplot_path}" unless File.exist? @gnuplot_path
     @gnuplot, @stdout, @stderr = Open3.popen3(@gnuplot_path)
     Thread.new { capture(@stdout) {|line| puts "> " + line } } 
@@ -58,6 +58,7 @@ class GNUPlotr
     options = args.inject("") {|s, t|
       s + " " + parse_tokens(t)
     }
+    warn options.inspect
     raw "#{name.to_s.sub(/_/, " ")} #{options}"
   end
     
@@ -108,6 +109,8 @@ class GNUPlotr
       t.to_s
     when String
       "'#{t}'"
+    when Range
+      "#{t}"
     when Hash
       r = ""
       t.each {|k,v|
@@ -117,6 +120,10 @@ class GNUPlotr
     else
       t.to_s
     end
+  end
+  
+  def find_path
+    `which gnuplot`.chomp
   end
 end
 
