@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{gnuplotr}
-  s.rubygems_version = %q{1.2.0}
+  s.rubygems_version = %q{1.2.1}
   s.has_rdoc = true
   s.summary = %q{Interface between Ruby and GNUPlot, aimed at being as easy to use and as light as possible}
 
