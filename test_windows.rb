@@ -7,7 +7,7 @@
 require './lib/gnuplotr'
 
 # Instantiate
-gp = GNUPlotr.new("C:/gnuplot/binary/gnuplot.exe")
+gp = GNUPlotr.new # eventually write: GNUPlotr.new('***path_to_gnuplot.exe***)
 
 # Create and fill a new series with pairs. This creates the parabola.dat file
 # Block-based way to do it:
@@ -44,10 +44,8 @@ gp.plot :parabola, "using 1:2 with points axes x1y1"
 # or with formulas. Options are collected in a string passed as second optional argument
 gp.replot "x**2", "with lines"
 
-
 # command history can be dumper and possibly saved on file to be edited or loaded again later on.
 puts gp.dump_input
-
 puts "Press a key for close the graph and quit the process."
 gets
 puts "Exiting"

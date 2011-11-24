@@ -40,6 +40,8 @@ class GNUPlotr
     @series = {}
     @record = false
     @record_list = []
+    
+    @windows_sys = false
   end
   
   def new_series(name)
@@ -122,7 +124,19 @@ class GNUPlotr
   end
   
   def find_path
-    `which gnuplot`.chomp
+    platform = ""
+    case RUBY_PLATFORM
+    when /darwin/
+      platform = `which gnuplot`.chomp
+    when /mswin/
+      @windows_sys = true
+    when /mingw/    
+      @windows_sys = true
+    else
+      raise ArgumentError, "Unknown operating system"
+    end
+    platform = 'C:/gnuplot/bin/gnuplot.exe' if @windows_sys
+    return platform
   end
 end
 
